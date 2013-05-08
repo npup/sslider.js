@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="../" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>sslider</title>  
+  <link rel="stylesheet" href="src/sslider.css">
+</head>
+
+<body>
+
+  <h1>sslider</h1>
+
+  <div id="apa"></div>
+
+<script type="text/javascript" src="lib/ip.min.js"></script>
+<script type="text/javascript" src="src/sslider.js"></script>
+<script type="text/javascript">
+var s = sslider.create(
+	[
+		"example/images/bjarne.png"
+		, "example/images/blaff.png"
+		, "example/images/ninja.png"
+		, "example/images/bruce.png"
+	]
+);
+
+s.showIdx(2).userNav(false).auto();
+
+var s2 = sslider.create(
+	[
+		"example/images/bjarne.png"
+		, "example/images/bruce.png"
+		, "example/images/ninja.png"
+		, "example/images/blaff.png"
+		, "example/images/ninja.png"
+	]
+	, {
+		"target": document.getElementById("apa")
+		, "width": 150
+		, "height": 150
+		, "duration": 400
+		, "auto": true
+		, "interval": 3000
+	}
+);
+</script>
+
+</body>
+</html>
