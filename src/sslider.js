@@ -92,6 +92,7 @@ var sslider = (function () {
       , "left": 0
       , "timer": null
       , "autoDir": 1
+      , "userNavActive": false
     };
     var container = doc.createElement("div");
     container.className = "sslider";
@@ -216,13 +217,16 @@ var sslider = (function () {
         elem = elem.parentNode;
       } while (elem);
     }
-    // TODO: try to prevent jittering when js-anim/auto and ruthless user navigation
     doc.addEventListener("keyup", function (e) {
       var focused = doc.activeElement
         , keyCode = e.keyCode;
       if (!(focused=getParentWidgetElem(focused))) {return;}
       var sslider = registry.get(focused)
         , dir = keys[keyCode];
+      // XYZ: cheap way try to prevent jittering when js-anim/auto and ruthless user navigation
+      if (sslider._state.userNavActive) {return;}
+      setTimeout(function () {sslider._state.userNavActive = false;}, sslider.options.duration);
+      sslider._state.userNavActive = true;
       sslider && dir && sslider[dir]();
     }, false);
     doc.addEventListener("click", function (e) {
