@@ -1,5 +1,12 @@
 /**
 *
+* Name: sslider.js
+* Version: 0.1
+* Description: simple image sliding utility
+* Author: P. Envall (petter.envall@gmail.com, @npup)
+* Date: 2013-05-09
+*
+*
 * API:
 *   sslider.create(images[, options]);
 *     images    - (DOM element) container in which to create the sslider widget
