@@ -6,6 +6,9 @@
 * Author: P. Envall (petter.envall@gmail.com, @npup)
 * Date: 2013-05-09
 *
+* Dependencies:
+*   ip.js >= v0.9 (only for fallback from CSS transition to JavaScript animation)
+*
 *
 * API:
 *   sslider.create(images[, options]);
