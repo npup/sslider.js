@@ -118,8 +118,16 @@ var sslider = (function () {
     list.className = "sslider-images";
     list.style.width = images.length*options.width+"px";
     list.style.left = String(sslider._state.left);
+    var dur = options.duration/1000+"s";
     if (supportsTransitions && "number" == typeof options.duration) {
-      list.style.transitionDuration = options.duration/1000+"s"; // TODO: vendor prefixes?
+      for (var vendorPrefix in {
+        "Webkit": true
+        , "Moz": true
+        , "O": true
+        , "": true
+      }) {
+        list.style[vendorPrefix+"transitionDuration"] = dur;
+      }
     }
     for (var idx=0, len=images.length; idx<len; ++idx) {
       var item = doc.createElement("li")
