@@ -21,6 +21,7 @@
 *                   auto      - (boolean, default false) if widget should start auto cycling
 *                   interval  - (int, default 3000) period for auto cycling steps
 *                   duration  - (int, default 300) duration of interpolation in ms - Note: you probably want this to be <= the "interval" option
+*                   legend    - (boolean, default true) if a clickable list of numbers representing the images should be shown at the bottom
 *
 * Instance API:
 *   i.prev()                  - move to previous frame (if any), returns instance
@@ -82,6 +83,7 @@ var sslider = (function () {
       , "auto": false
       , "interval": 3000
       , "duration": 300
+      , "legend": true
     };
     return {
       "merge": function (options) {
@@ -130,6 +132,7 @@ var sslider = (function () {
       list.appendChild(item);
     }
     innerContainer.appendChild(list);
+    if (options.legend) {
     var legend = doc.createElement("ol");
     legend.className = "sslider-legend";
     innerContainer.appendChild(legend);
@@ -143,6 +146,7 @@ var sslider = (function () {
       item.appendChild(button);
       legend.appendChild(item);
       sslider.legend.push(item);
+    }
     }
     options.target.appendChild(container);
     container.focus();
@@ -168,8 +172,10 @@ var sslider = (function () {
       var offset = -1 * idx * sslider.options.width;
       animate(sslider, offset);
       sslider._state.currentIdx = idx;
-      for (var idx2=0, len=sslider.legend.length; idx2<len; ++idx2) {
-        sslider.legend[idx2].className = idx2==idx ? "selected" : "";
+      if (sslider.options.legend) {
+        for (var idx2=0, len=sslider.legend.length; idx2<len; ++idx2) {
+          sslider.legend[idx2].className = idx2==idx ? "selected" : "";
+        }
       }
       return sslider;
     }
