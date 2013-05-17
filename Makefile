@@ -19,7 +19,7 @@ dist: ${SRC}
 
 #target: min - minify built file
 min: dist
-	@uglifyjs ${DIST_FILE} > ${DIST_FILE_MIN}
+	@uglifyjs -nc ${DIST_FILE} > ${DIST_FILE_MIN}
 	@echo 'target:' $@', using uglifyjs'
 
 #target: lint - run jshint tests

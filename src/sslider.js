@@ -176,6 +176,7 @@ var sslider = (function () {
     , "auto": function (auto) {
       auto = arguments.length==0 || !!auto;
       var sslider = this;
+      sslider.options.auto = auto;
       auto ? autoMove(sslider) : clearTimeout(sslider._state.timer);
       return sslider;
     }
@@ -233,20 +234,39 @@ var sslider = (function () {
       if (!(focused=getParentWidgetElem(focused))) {return;}
       var sslider = registry.get(focused)
         , dir = keys[keyCode];
-      // XYZ: cheap way try to prevent jittering when js-anim/auto and ruthless user navigation
-      if (sslider._state.userNavActive) {return;}
-      setTimeout(function () {sslider._state.userNavActive = false;}, sslider.options.duration);
-      sslider._state.userNavActive = true;
-      sslider && dir && sslider[dir]();
+      if (sslider) {
+        if (preventRuthlessNavigation(sslider)) {return;}
+        pauseAutoMoving(sslider);
+        sslider && dir && sslider[dir]();
+      }
     }, false);
     doc.addEventListener("click", function (e) {
       var target = e.target, legendList;
       if (!(target.nodeName.toLowerCase()=="button" && (legendList=getParentLegendListElem(target)))) {return;}
       var sslider = registry.get(getParentWidgetElem(legendList))
         , idx = parseInt(target.value, 10);
-      sslider && sslider.showIdx(idx);
+      if (sslider) {
+        if (preventRuthlessNavigation(sslider)) {return;}
+        pauseAutoMoving(sslider);
+        sslider.showIdx(idx);
+      }
     }, false);
   })();
+
+  function preventRuthlessNavigation(sslider) {
+    if (sslider._state.userNavActive) {return true;} // already on it, bail
+    setTimeout(function () {sslider._state.userNavActive = false;}, sslider.options.duration);
+    sslider._state.userNavActive = true;
+  }
+  function pauseAutoMoving(sslider) {
+    if (sslider.options.auto) {
+      sslider.options.auto = false;
+      clearTimeout(sslider._state.timer);
+      setTimeout(function () {
+        sslider.auto();
+      }, sslider.options.duration*2);
+    }
+  }
 
   return {
     "create": function (images, options) {
