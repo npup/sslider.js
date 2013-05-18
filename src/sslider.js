@@ -141,20 +141,21 @@ var sslider = (function () {
     }
     innerContainer.appendChild(list);
     if (options.legend) {
-    var legend = doc.createElement("ol");
-    legend.className = "sslider-legend";
-    innerContainer.appendChild(legend);
-    var items = list.getElementsByTagName("li");
-    sslider.legend = [];
-    for (idx=0, len=items.length; idx<len; ++idx) {
-      item = doc.createElement("li");
-      var button = doc.createElement("button");
-      button.innerHTML = idx+1;
-      button.value = idx;
-      item.appendChild(button);
-      legend.appendChild(item);
-      sslider.legend.push(item);
-    }
+      var legend = doc.createElement("ol");
+      legend.className = "sslider-legend";
+      innerContainer.appendChild(legend);
+      var items = list.getElementsByTagName("li");
+      sslider.legend = [];
+      for (idx=0, len=items.length; idx<len; ++idx) {
+        item = doc.createElement("li");
+        var button = doc.createElement("button");
+        button.className = "legend-item";
+        button.innerHTML = idx+1;
+        button.value = idx;
+        item.appendChild(button);
+        legend.appendChild(item);
+        sslider.legend.push(item);
+      }
     }
     options.target.appendChild(container);
     container.focus();
@@ -248,6 +249,7 @@ var sslider = (function () {
       if (!(focused=getParentWidgetElem(focused))) {return;}
       var sslider = registry.get(focused)
         , dir = keys[keyCode];
+      if (!dir) {return;} // only let the predefined key nav through
       if (sslider) {
         if (preventRuthlessNavigation(sslider)) {return;}
         pauseAutoMoving(sslider);
