@@ -1,0 +1,8 @@
+.view-src {
+  display: inline-block;
+  white-space: pre;
+  font-family: "Courier new", Monospace;
+  background-color: #f2f2f2;
+  color: #333;
+  padding: 2em;
+}

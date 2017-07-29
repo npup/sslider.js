@@ -1,1 +1,50 @@
-My GitHub Page
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>sslider.js</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sslider.css">
+</head>
+
+<body>
+
+  <h1>sslider.js</h1>
+
+
+
+<script src="js/sslider.js"></script>
+<script class="view-src">
+var s = sslider.create(
+  [
+    "images/bjarne.png"
+    , "images/blaff.png"
+    , "images/ninja.png"
+    , "images/bruce.png"
+  ]
+);
+</script>
+
+<h3>Another</h3>
+
+<script class="view-src">
+var s2 = sslider.create(
+  [
+    "images/bjarne.png"
+    , "images/bruce.png"
+    , "images/ninja.png"
+    , "images/blaff.png"
+    , "images/ninja.png"
+  ]
+  , {
+    "width": 190
+    , "height": 150
+    , "duration": 400
+    , "auto": true
+    , "interval": 4000
+  }
+);
+</script>
+
+</body>
+</html>
